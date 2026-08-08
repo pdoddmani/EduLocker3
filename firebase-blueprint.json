@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profiles",
+      "description": "User profile information, institution/university details, and settings",
+      "fields": {
+        "uid": { "type": "string", "description": "Auth user ID" },
+        "displayName": { "type": "string", "description": "Display name" },
+        "email": { "type": "string", "description": "User email address" },
+        "photoURL": { "type": "string", "description": "User profile avatar" },
+        "institution": { "type": "string", "description": "Institute / College / University name" },
+        "createdAt": { "type": "string", "description": "Account created timestamp" },
+        "updatedAt": { "type": "string", "description": "Account updated timestamp" }
+      }
+    },
+    "documents": {
+      "title": "EduLocker Credentials",
+      "description": "Academic certificates, degrees, marksheets, and transcripts stored in Firestore database",
+      "fields": {
+        "title": { "type": "string", "description": "Credential title" },
+        "description": { "type": "string", "description": "Document description / notes" },
+        "category": { "type": "string", "description": "Category or tag" },
+        "ownerId": { "type": "string", "description": "Firebase Auth User UID" },
+        "institution": { "type": "string", "description": "Issuing educational institution" },
+        "credentialId": { "type": "string", "description": "Certificate ID / USN / Registration Number" },
+        "issueDate": { "type": "string", "description": "Issue Date" },
+        "gradeOrMarks": { "type": "string", "description": "GPA, CGPA, or Marks" },
+        "verificationStatus": { "type": "string", "description": "Digital Seal Verification Status" },
+        "verificationHash": { "type": "string", "description": "Tamper-proof Cryptographic Verification Hash" },
+        "fileName": { "type": "string", "description": "Original file name" },
+        "fileSizeText": { "type": "string", "description": "Human readable file size" },
+        "fileSizeBytes": { "type": "number", "description": "File size in bytes" },
+        "fileType": { "type": "string", "description": "MIME type" },
+        "fileDataUrl": { "type": "string", "description": "Document preview URL" },
+        "isPasswordProtected": { "type": "boolean", "description": "Is credential encrypted with password" },
+        "documentPassword": { "type": "string", "description": "Encrypted credential password" },
+        "aiAnalysis": { "type": "string", "description": "Gemini AI generated insights or breakdown" },
+        "createdAt": { "type": "string", "description": "ISO creation timestamp" },
+        "updatedAt": { "type": "string", "description": "ISO updated timestamp" }
+      }
+    }
+  },
+  "securityRules": {
+    "users": {
+      "read": "request.auth != null && request.auth.uid == resource.data.uid",
+      "write": "request.auth != null && request.auth.uid == resource.data.uid"
+    },
+    "documents": {
+      "read": "request.auth != null && resource.data.ownerId == request.auth.uid",
+      "write": "request.auth != null && (resource == null || resource.data.ownerId == request.auth.uid)"
+    }
+  }
+}

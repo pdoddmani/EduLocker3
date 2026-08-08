@@ -1,0 +1,6 @@
+{
+  "name": "EduLocker",
+  "description": "EduLocker - Secure Digital Academic Vault for Certificates, Marksheets, Transcripts & Student Credentials.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
